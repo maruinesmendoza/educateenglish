@@ -32,7 +32,7 @@
 </head>
 <title>Educate English</title>
 <body  class="text-center">
-<form class="form-signin" method="POST" action='<%= response.encodeURL("j_security_check") %>' >
+<form class="form-signin" method="POST" action='index.jsp' >
 
     <button class="btn btn-lg btn-secondary btn-block" type="submit">Educate English</button>
   

@@ -6,18 +6,29 @@
     return;
   }
 %>
-<html>
-<head>
-<title>Protected Page for Examples</title>
+
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Jekyll v4.0.1">
+    <title>Carousel Template · Bootstrap</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/carousel/">
+
     <!-- Bootstrap core CSS -->
-    <link href="../assets/dist/css/bootstrap.css" rel="stylesheet">
+<link href="assets/dist/css/bootstrap.css" rel="stylesheet">
 
     <style>
       body
       {
- background-image: url("../assets/dist/img/back.jpg");
- color:navy;
+        background-color: gray;
       }
+      
       .bd-placeholder-img {
         font-size: 1.125rem;
         text-anchor: middle;
@@ -26,7 +37,11 @@
         -ms-user-select: none;
         user-select: none;
       }
-
+     .img-size
+     {
+      width: 500px;
+      height: 300px;
+     }
       @media (min-width: 768px) {
         .bd-placeholder-img-lg {
           font-size: 3.5rem;
@@ -34,90 +49,75 @@
       }
     </style>
     <!-- Custom styles for this template -->
-    <link href="signin.css" rel="stylesheet">
-</head>
-<body bgcolor="white">
-<link href="../assets/dist/css/bootstrap.css" rel="stylesheet">
+    <link href="carousel.css" rel="stylesheet">
+  </head>
+  <body>
+    <header>
+  <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+    <a class="navbar-brand" href="#">Educate English</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="login.jsp">Salir</a>
+        </li>
 
-You are logged in as remote user
-<b><%= util.HTMLFilter.filter(request.getRemoteUser()) %></b>
-in session <b><%= session.getId() %></b><br><br>
+      </ul>
+    </div>
+  </nav>
+</header>
 
-<%
-  if (request.getUserPrincipal() != null) {
-%>
-    Your user principal name is
-    <b><%= util.HTMLFilter.filter(request.getUserPrincipal().getName()) %></b>
-    <br><br>
-<%
-  } else {
-%>
-    No user principal could be identified.<br><br>
-<%
-  }
-%>
+  <div id="myCarousel" class="carousel slide" data-ride="carousel">
+    <ol class="carousel-indicators">
+      <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+      <li data-target="#myCarousel" data-slide-to="1"></li>
+      <li data-target="#myCarousel" data-slide-to="2"></li>
+    </ol>
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <div class="text-center">
+          <img src="assets/dist/img/pic/1.jpg" alt="..." class="img-thumbnail img-size">
+          <button class="btn btn-lg btn-primary btn-block" type="submit">Dog</button>
+          <button class="btn btn-lg btn-primary btn-block" type="submit">Table</button>
+          <button class="btn btn-lg btn-primary btn-block" type="submit">Chair</button>
+        </div>
+      </div>
+      <div class="carousel-item">
+         <div class="text-center">
+          <img src="assets/dist/img/pic/2.jpg" alt="..." class="img-thumbnail img-size">
+          <button class="btn btn-lg btn-primary btn-block" type="submit">Dog</button>
+          <button class="btn btn-lg btn-primary btn-block" type="submit">Table</button>
+          <button class="btn btn-lg btn-primary btn-block" type="submit">Chair</button>
+        </div>
+      </div>
+      <div class="carousel-item">
+     
+          <div class="text-center">
+            <img src="assets/dist/img/pic/3.jpg" alt="..." class="img-thumbnail img-size">
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Cell Phone</button>
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Table</button>
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Chair</button>
+          </div>
+      </div>
+    </div>
+    <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#myCarousel" role="button" data-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>
+  </div>
 
-<%
-  String role = request.getParameter("role");
-  if (role == null)
-    role = "";
-  if (role.length() > 0) {
-    if (request.isUserInRole(role)) {
-%>
-      You have been granted role
-      <b><%= util.HTMLFilter.filter(role) %></b><br><br>
-<%
-    } else {
-%>
-      You have <i>not</i> been granted role
-      <b><%= util.HTMLFilter.filter(role) %></b><br><br>
-<%
-    }
-  }
-%>
-
-To check whether your user name has been granted a particular role,
-enter it here:
-<form method="GET" action='<%= response.encodeURL("index.jsp") %>'>
-<input type="text" name="role" value="<%= util.HTMLFilter.filter(role) %>">
-<input type="submit" >
-</form>
-<br><br>
-
-To add some data to the authenticated session, enter it here:
-<form method="GET" action='<%= response.encodeURL("index.jsp") %>'>
-<input type="text" name="dataName">
-<input type="text" name="dataValue">
-<input type="submit" >
-</form>
-<br><br>
-
-<%
-  String dataName = request.getParameter("dataName");
-  if (dataName != null) {
-    session.setAttribute(dataName, request.getParameter("dataValue"));
-  }
-%>
-<p>The authenticated session contains the following attributes:</p>
-<table>
-<tr><th>Name</th><th>Value</th></tr>
-<%
-  Enumeration<String> names = session.getAttributeNames();
-  while (names.hasMoreElements()) {
-    String name = names.nextElement();
-%>
-<tr><td><%= name %></td><td><%= session.getAttribute(name) %></td>
-<%
-  }
-%>
-</table>
-<br><br>
-
-If you have configured this application for form-based authentication, you can
-log off by clicking
-<a href='<%= response.encodeURL("index.jsp?logoff=true") %>'>here</a>.
-This should cause you to be returned to the login page after the redirect
-that is performed.
-
-</body>
+  <!-- FOOTER -->
+  <footer class="container">
+    <p class="float-right"><a href="#">Back to top</a></p>
+    <p>&copy; 2020 Educate English, Inc. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
+  </footer>
+</main>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+      <script>window.jQuery || document.write('<script src="../assets/js/vendor/jquery.slim.min.js"><\/script>')</script><script src="assets/dist/js/bootstrap.bundle.js"></script></body>
 </html>
